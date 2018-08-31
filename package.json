@@ -6,7 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
-    "app"
+    "app",
+    "noframework",
+    "react"
   ],
   "repository": {
     "type": "git",
