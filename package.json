@@ -1,0 +1,34 @@
+{
+  "name": "generator-spfx-proppane-control",
+  "version": "0.9.0",
+  "description": "SharePoint Framework add-on generator to add Property Pane controls to the project",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "app"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AJIXuMuK/generator-spfx-proppane-control.git"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "SPFx",
+    "SharePoint",
+    "Framework",
+    "SharePoint"
+  ],
+  "author": "Alex Terentiev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AJIXuMuK/generator-spfx-proppane-control/issues"
+  },
+  "homepage": "https://github.com/AJIXuMuK/generator-spfx-proppane-control#readme",
+  "dependencies": {
+    "@microsoft/generator-sharepoint": "^1.5.1",
+    "chalk": "^2.4.1",
+    "lodash": "^4.17.10",
+    "yeoman-generator": "^3.1.1"
+  }
+}
