@@ -1,6 +1,6 @@
 {
   "name": "generator-spfx-proppane-control",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "SharePoint Framework add-on generator to add Property Pane controls to the project",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
