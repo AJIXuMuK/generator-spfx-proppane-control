@@ -9,6 +9,7 @@
     "app",
     "noframework",
     "react",
+    "vue",
     "common"
   ],
   "repository": {

@@ -47,7 +47,8 @@ module.exports = class extends Generator {
             message: 'Which framework would you like to use?',
             choices: [
                 { name: 'No JavaScript framework', value: 'none' },
-                { name: 'React', value: 'react' }
+                { name: 'React', value: 'react' },
+                { name: 'Vue.js', value: 'vue' }
             ]
 
         }]).then((answers) => {
@@ -62,6 +63,9 @@ module.exports = class extends Generator {
                     break;
                 case 'react':
                     this.composeWith(require.resolve('../react'), options);
+                    break;
+                case 'vue':
+                    this.composeWith(require.resolve('../vue'), options);
                     break;
             }
         });
