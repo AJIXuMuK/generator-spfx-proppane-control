@@ -12,11 +12,11 @@ module.exports = class extends Generator {
     }
 
     install() {
-        utils.copyFile(this.fs, this.templatePath('IPropertyField.ts'),
+        utils.copyFile(this, this.templatePath('IPropertyField.ts'),
             `${this.outputFolder}/IPropertyField${this.normalizedNames.componentName}.ts`, this.normalizedNames);
-        utils.copyFile(this.fs, this.templatePath('PropertyField.ts'),
+        utils.copyFile(this, this.templatePath('PropertyField.ts'),
             `${this.outputFolder}/PropertyField${this.normalizedNames.componentName}.ts`, this.normalizedNames);
-        utils.copyFile(this.fs, this.templatePath('PropertyField.module.scss'),
+        utils.copyFile(this, this.templatePath('PropertyField.module.scss'),
             `${this.outputFolder}/PropertyField${this.normalizedNames.componentName}.module.scss`, this.normalizedNames);
     }
 }
