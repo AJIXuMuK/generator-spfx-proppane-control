@@ -34,12 +34,8 @@ module.exports = class extends Generator {
             `${this.outputFolder}/IPropertyField${this.normalizedNames.componentName}Host.ts`, this.normalizedNames);
         utils.copyFile(this, this.templatePath('PropertyField.ts'),
             `${this.outputFolder}/PropertyField${this.normalizedNames.componentName}.ts`, this.normalizedNames);
-            utils.copyFile(this, this.templatePath('PropertyFieldHost.ts'),
-            `${this.outputFolder}/PropertyField${this.normalizedNames.componentName}Host.ts`, this.normalizedNames);
         utils.copyFile(this, this.templatePath('PropertyFieldHost.vue'),
             `${this.outputFolder}/PropertyField${this.normalizedNames.componentName}Host.vue`, this.normalizedNames);
-        utils.copyFile(this, this.templatePath('PropertyField.module.scss'),
-            `${this.outputFolder}/PropertyField${this.normalizedNames.componentName}.module.scss`, this.normalizedNames);
     }
 
     _getModulesToInstall() {
@@ -61,6 +57,6 @@ module.exports = class extends Generator {
     }
 
     _injectToGulpFile() {
-        utils.injectToGulpFile(this, `\\{\\s*VueLoaderPlugin\\s*\\}\\s*=\\s*require\\(('|")vue-loader('|")\\);?`);
+        utils.injectToGulpFile(this, `\\s*VueLoaderPlugin\\s*=\\s*require\\(('|")vue-loader/lib/plugin('|")\\);?`);
     }
 }
