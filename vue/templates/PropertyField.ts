@@ -1,8 +1,6 @@
 import { IPropertyPaneField, PropertyPaneFieldType } from '@microsoft/sp-webpart-base';
 import { IPropertyField{ComponentName}Props, IPropertyField{ComponentName}PropsInternal } from './IPropertyField{ComponentName}';
 
-import styles from './PropertyField{ComponentName}.module.scss';
-
 // Importing Vue.js
 import Vue from 'vue';
 // Improting Vue.js SFC
@@ -51,7 +49,6 @@ class PropertyField{ComponentName}Builder implements IPropertyPaneField<IPropert
         const id: string = `ppf-${this.properties.key}`;
 
         elem.innerHTML = '';
-        elem.className = styles.{ComponentName};
 
         // root div element of the component
         const element: HTMLDivElement = document.createElement('div');

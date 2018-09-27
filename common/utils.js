@@ -2,6 +2,7 @@
 
 // incldue nodejs fs
 const fs = require('fs');
+const commandExists = require('command-exists').sync;
 
 module.exports = {
     copyFile: (yeoman, sourcePath, destinationPath, normalizedNames) => {
@@ -12,32 +13,82 @@ module.exports = {
 
     },
 
-    getModulesToInstall: (yeoman, addonConfig) => {
-        const packageJsonContent = yeoman.fs.readJSON(yeoman.destinationPath('package.json'));
-        const packageJsonDeps = packageJsonContent.dependencies || {};
-        const packageJsonDevDeps = packageJsonContent.devDependencies || {};
-        const deps = addonConfig.dependencies || {};
-        const devDeps = addonConfig.devDependencies || {};
+    mergeConfig: (yeoman, additionalConfig, needToInstallObj) => {
+        const config = yeoman.fs.readJSON(yeoman.destinationPath('package.json'));
+        let deps = config.dependencies;
+        let devDeps = config.devDependencies;
 
-        const resultDeps = [];
-        const resultDevDeps = [];
-
-        Object.keys(deps).forEach(key => {
-            if (!packageJsonDeps[key]) {
-                resultDeps.push(`${key}@${deps[key]}`);
+        if (additionalConfig.dependencies) {
+            for (let depKey in additionalConfig.dependencies) {
+                if (!deps[depKey]) {
+                    needToInstallObj.flag = true;
+                    deps[depKey] = additionalConfig.dependencies[depKey];
+                }
             }
-        });
+        }
 
-        Object.keys(devDeps).forEach(key => {
-            if (!packageJsonDevDeps[key]) {
-                resultDevDeps.push(`${key}@${devDeps[key]}`);
+        if (additionalConfig.devDependencies) {
+            for (let devDepKey in additionalConfig.devDependencies) {
+                if (!devDeps[devDepKey]) {
+                    needToInstallObj.flag = true;
+                    devDeps[devDepKey] = additionalConfig.devDependencies[devDepKey];
+                }
             }
-        });
+        }
 
-        return {
-            dependencies: resultDeps,
-            devDependencies: resultDevDeps
+        return config;
+    },
+
+    runInstall: (yeoman, additionalConfig) => {
+        let needToInstall = {
+            flag: false
         };
+        const mergedConfig = module.exports.mergeConfig(yeoman, additionalConfig, needToInstall);
+        if (!needToInstall.flag) {
+            // no changes
+            return;
+        }
+        fs.writeFileSync(yeoman.destinationPath('package.json'), JSON.stringify(mergedConfig, null, 2));
+        const yorcPath = yeoman.destinationPath('.yo-rc.json');
+        const yoConfig = yeoman.fs.readJSON(yorcPath);
+        const packageManager = yoConfig.packageManager;
+
+        if (packageManager === undefined ||
+            packageManager.toLowerCase() === 'npm' ||
+            packageManager.toLowerCase() === 'yarn') {
+
+            let hasYarn = commandExists('yarn');
+
+            // override yarn if npm is preferred
+            if (packageManager === 'npm') {
+                hasYarn = false;
+            }
+
+            yeoman.installDependencies({
+                npm: !hasYarn,
+                bower: false,
+                yarn: hasYarn
+            });
+
+        } else {
+
+            if (packageManager === 'pnpm') {
+
+                const hasPnpm = commandExists('pnpm');
+
+                if (hasPnpm) {
+                    yeoman.spawnCommand('pnpm', ['install']);
+                } else {
+                    throw 'Cannot find pnpm';
+                }
+
+            } else {
+
+                throw 'Error: Package Manager not defined ' + packageManager;
+
+            }
+
+        }
     },
 
     composeGulpFile: (customTemplate, outputFile, compareRegExpStr) => {
