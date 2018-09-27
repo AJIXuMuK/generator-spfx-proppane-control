@@ -14,16 +14,6 @@ module.exports = class extends Generator {
     }
 
     install() {
-        const modulesToInstall = this._getModulesToInstall();
-
-        if (modulesToInstall.dependencies.length) {
-            this.npmInstall(modulesToInstall.dependencies, { 'save': true, 'save-exact': true });
-        }
-
-        if (modulesToInstall.devDependencies.length) {
-            this.npmInstall(modulesToInstall.devDependencies, { 'save-dev': true, 'save-exact': true });
-        }
-
         this._copyShims();
 
         this._injectToGulpFile();
@@ -36,15 +26,8 @@ module.exports = class extends Generator {
             `${this.outputFolder}/PropertyField${this.normalizedNames.componentName}.ts`, this.normalizedNames);
         utils.copyFile(this, this.templatePath('PropertyFieldHost.vue'),
             `${this.outputFolder}/PropertyField${this.normalizedNames.componentName}Host.vue`, this.normalizedNames);
-    }
 
-    _getModulesToInstall() {
-        const addonConfig = JSON.parse(
-            fs.readFileSync(
-                this.templatePath('config.json')
-            )
-        );
-        return utils.getModulesToInstall(this, addonConfig);
+        utils.runInstall(this, JSON.parse(fs.readFileSync(this.templatePath('config.json'))));
     }
 
     _copyShims() {
