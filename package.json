@@ -33,9 +33,7 @@
     "@microsoft/generator-sharepoint": "^1.7.1",
     "chalk": "^2.4.1",
     "lodash": "^4.17.10",
-    "yeoman-generator": "^3.1.1"
-  },
-  "devDependencies": {
+    "yeoman-generator": "^3.1.1",
     "command-exists": "^1.2.7"
   }
 }
