@@ -1,4 +1,4 @@
-import { IPropertyPaneField, PropertyPaneFieldType } from '@microsoft/sp-webpart-base';
+import { IPropertyPaneField, PropertyPaneFieldType } from '@microsoft/sp-property-pane';
 import { IPropertyField{ComponentName}Props, IPropertyField{ComponentName}PropsInternal } from './IPropertyField{ComponentName}';
 
 // Importing Vue.js

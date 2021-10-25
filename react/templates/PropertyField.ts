@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { IPropertyPaneField, PropertyPaneFieldType } from '@microsoft/sp-webpart-base';
+import { IPropertyPaneField, PropertyPaneFieldType } from '@microsoft/sp-property-pane';
 import { IPropertyField{ComponentName}Props, IPropertyField{ComponentName}PropsInternal } from './IPropertyField{ComponentName}';
 import { IPropertyField{ComponentName}HostProps } from './IPropertyField{ComponentName}Host';
 import PropertyField{ComponentName}Host from './PropertyField{ComponentName}Host';
